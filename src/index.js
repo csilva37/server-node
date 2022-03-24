@@ -3,6 +3,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 import express from 'express'
 import logger from './utils/logger'
+import errors from './utils/errors'
 
 const app = express()
 
@@ -19,5 +20,7 @@ app.get('/', (req, res) => {
     logger.log.success('Calling Root')
     res.send({msg: 'Hello There!' })
 })
+app.use(errors.notFound)
+app.use(errors.errorHandler)
 
 app.listen(config.port)
