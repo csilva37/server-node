@@ -1,4 +1,6 @@
 import config from'./utils/config'
+import helmet from 'helmet'
+import cors from 'cors'
 import express from 'express'
 import logger from './utils/logger'
 
@@ -6,7 +8,12 @@ const app = express()
 
 app.use(logger.middleware)
 
-const port = process.env.PORT
+app.use(helmet())
+app.use(
+    cors({
+      origin: config.origin,
+    }),
+  )
 
 app.get('/', (req, res) => {
     logger.log.success('Calling Root')
