@@ -4,6 +4,7 @@ import cors from 'cors'
 import express from 'express'
 import logger from './utils/logger'
 import errors from './utils/errors'
+import auth from './utils/auth'
 import router from './routes'
 
 const app = express()
@@ -20,6 +21,8 @@ app.use(
     }),
   )
 
+  app.use(auth.initialize())
+  
   app.use(router)
 app.use(errors.notFound)
 app.use(errors.errorHandler)
